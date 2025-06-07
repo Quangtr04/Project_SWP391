@@ -18,10 +18,11 @@ const registerController = async (Infomation) => {
       .input("phone", sql.NVarChar, Infomation.phone)
       .input("password", sql.NVarChar, Infomation.password)
       .input("role_id", sql.Int, role_id.role_id)
+      .input("is_active", sql.Bit, 1)
       .query(
-        `INSERT INTO [User] (email, phone, password, role_id) 
+        `INSERT INTO [User] (email, phone, password, role_id, is_active) 
            OUTPUT INSERTED.user_id 
-           VALUES (@email, @phone, @password, @role_id)`
+           VALUES (@email, @phone, @password, @role_id, @is_active)`
       );
 
     const user_id = userInsertResult.recordset[0].user_id;

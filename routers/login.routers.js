@@ -6,27 +6,10 @@ const {
   forgotPasswordByPhoneController,
   newPassword,
 } = require("../Controller/forgot_password_Controller");
+const generateToken = require("../Utils/jwt");
 const loginRouter = express();
 
-loginRouter.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const user = await loginController(username, password);
-    res.status(200).json({ status: "success", user });
-  } catch (err) {
-    res.status(401).json({ status: "fail", message: err });
-  }
-});
-
-loginRouter.post("/register", async (req, res) => {
-  const Infomation = req.body;
-  try {
-    const result = await registerController(Infomation);
-    res.status(201).json({ status: "success", data: result });
-  } catch (err) {
-    res.status(400).json({ status: "fail", message: err });
-  }
-});
+loginRouter.post("/login", loginController);
 
 loginRouter.post("/forgot-password", async (req, res) => {
   const { email, phone } = req.body;

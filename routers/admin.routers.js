@@ -1,7 +1,18 @@
 const express = require("express");
 const { getAllStudentInfo, getStudentInfoById } = require("../Controller/getInfomation");
+const registerController = require("../Controller/registerController");
 
 const adminRouter = express.Router();
+
+adminRouter.post("/register", async (req, res) => {
+  const Infomation = req.body;
+  try {
+    const result = await registerController(Infomation);
+    res.status(201).json({ status: "success", data: result });
+  } catch (err) {
+    res.status(400).json({ status: "fail", message: err });
+  }
+});
 
 adminRouter.get("/InfomationStudent", async (req, res) => {
   try {

@@ -1,12 +1,16 @@
-// Middleware kiểm tra user có vai trò được phép hay không
-function authorize(allowedRoles = []) {
-  return (req, res, next) => {
-    const userRole = req.user.role; // Giả sử req.user đã chứa role do auth middleware trước đó gán
-    if (!allowedRoles.includes(userRole)) {
-      return res.status(403).json({ message: "Access denied: insufficient permissions." });
-    }
-    next();
-  };
-}
+const jwt = require("jsonwebtoken");
 
-module.exports = authorize;
+const auth = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  if (!authHeader) return res.status(401).json({ message: "No token provided" });
+
+  const token = authHeader.split(" ")[1]; // "Bearer token"
+
+  jwt.verify(token, "SECRET_KEY", (err, user) => {
+    if (err) return res.status(403).json({ message: "Invalid token" });
+    req.user = user;
+    next();
+  });
+};
+
+module.exports = auth;
