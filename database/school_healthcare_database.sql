@@ -1,4 +1,4 @@
-﻿-- Roles and Users
+-- Roles and Users
 CREATE TABLE Role (
     role_id INT IDENTITY(1,1) PRIMARY KEY,
     name NVARCHAR(255) NOT NULL UNIQUE
@@ -39,8 +39,7 @@ CREATE TABLE Student_Information (
     gender NVARCHAR(10) NULL,
     date_of_birth DATE NULL,
     class NVARCHAR(50) NULL,
-    phone NVARCHAR(20) NULL,
-    email NVARCHAR(100) NULL,
+    parent_phone NVARCHAR(20) NULL,
     address NVARCHAR(200) NULL,
     created_at DATETIME DEFAULT GETDATE()
 );
