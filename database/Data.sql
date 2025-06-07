@@ -1,4 +1,4 @@
-﻿-- Roles
+-- Roles
 INSERT INTO Role (name) VALUES
 ('Admin'),
 ('Manager'),
@@ -30,9 +30,9 @@ INSERT INTO Infomation (user_id, role_id, fullname, dayOfBirth, phone, email, ge
 -- (bỏ teacher infomation)
 
 -- Student_Information
-INSERT INTO Student_Information (student_code, full_name, gender, date_of_birth, class, phone, email, address) VALUES
-('STU001', N'Nguyen Van D', 'Male', '2010-09-01', N'10A1', '0912345678', 'student1@example.com', N'12 Student Lane, Hanoi'),
-('STU002', N'Tran Thi E', 'Female', '2011-02-15', N'10A2', '0987654321', 'student2@example.com', N'34 Student Lane, Hanoi');
+INSERT INTO Student_Information (student_code, full_name, gender, date_of_birth, class, parent_phone, address) VALUES
+('STU001', N'Nguyen Van D', 'Male', '2010-09-01', N'10A1', '0912345678',  N'12 Student Lane, Hanoi'),
+('STU002', N'Tran Thi E', 'Female', '2011-02-15', N'10A2', '0987654321',  N'34 Student Lane, Hanoi');
 
 -- Relationship (Parent to Student)
 INSERT INTO Relationship (parent_info_id, student_info_id, relationship_type) VALUES
