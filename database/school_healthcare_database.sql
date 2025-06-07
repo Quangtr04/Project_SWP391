@@ -1,4 +1,4 @@
-﻿-- Roles and Users
+-- Roles and Users
 CREATE TABLE Role (
     role_id INT IDENTITY(1,1) PRIMARY KEY,
     name NVARCHAR(255) NOT NULL UNIQUE
@@ -8,7 +8,7 @@ CREATE TABLE Users (
     user_id INT IDENTITY(1,1) PRIMARY KEY,
     email NVARCHAR(255) NOT NULL UNIQUE,
     password NVARCHAR(255) NOT NULL,
-	phone varchar(50) not null,
+	phone varchar(50),
     role_id INT NOT NULL,
     is_active BIT DEFAULT 1,
     created_at DATETIME DEFAULT GETDATE(),
@@ -31,6 +31,12 @@ CREATE TABLE Infomation (
     CONSTRAINT FK_Infomation_Role FOREIGN KEY (role_id) REFERENCES Role(role_id)
 );
 
+-- Class and Assignment
+CREATE TABLE Class (
+    class_name NVARCHAR(50) PRIMARY KEY,
+    number_of_student INT NULL
+);
+
 -- Student Information (tách riêng, không cần tài khoản)
 CREATE TABLE Student_Information (
     student_info_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -38,28 +44,18 @@ CREATE TABLE Student_Information (
     full_name NVARCHAR(100) NOT NULL,
     gender NVARCHAR(10) NULL,
     date_of_birth DATE NULL,
-    class NVARCHAR(50) NULL,
-    phone NVARCHAR(20) NULL,
-    email NVARCHAR(100) NULL,
+    class_name NVARCHAR(50) NULL,
+    parent_id INT NOT NULL,
     address NVARCHAR(200) NULL,
-    created_at DATETIME DEFAULT GETDATE()
+    created_at DATETIME DEFAULT GETDATE(),
+	CONSTRAINT FK_Student_Information_Users FOREIGN KEY (parent_id) REFERENCES Users(user_id),
+	CONSTRAINT FK_Student_Information_Class FOREIGN KEY (class_name) REFERENCES Class(class_name)
+
+
 );
 
--- Parent - Student Relationship
-CREATE TABLE Relationship (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    parent_info_id INT NOT NULL,
-    student_info_id INT NOT NULL,
-    relationship_type NVARCHAR(50) NOT NULL,
-    CONSTRAINT FK_Relationship_ParentInfo FOREIGN KEY (parent_info_id) REFERENCES Infomation(info_id),
-    CONSTRAINT FK_Relationship_StudentInfo FOREIGN KEY (student_info_id) REFERENCES Student_Information(student_info_id)
-);
 
--- Class and Assignment
-CREATE TABLE Class (
-    class_name NVARCHAR(50) PRIMARY KEY,
-    number_of_student INT NULL
-);
+
 
 -- Medication Request
 CREATE TABLE Medication_Submisstion_Request (
