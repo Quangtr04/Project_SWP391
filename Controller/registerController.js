@@ -1,6 +1,6 @@
 const sqlServerPool = require("../Utils/connectMySql");
 const sql = require("mssql");
-const getRole = require("../Controller/getRole");
+const getRole = require("../Utils/getRole");
 
 const registerController = async (Infomation) => {
   try {

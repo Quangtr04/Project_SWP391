@@ -1,5 +1,5 @@
 const sql = require("mssql");
-const sqlServerPool = require("../Utils/connectMySql");
+const sqlServerPool = require("./connectMySql");
 
 const getRole = async (role_name) => {
   try {

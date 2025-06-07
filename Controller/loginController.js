@@ -11,7 +11,7 @@ const loginController = async (username, password) => {
         .request()
         .input("username", sql.NVarChar, username)
         .input("password", sql.NVarChar, password)
-        .query("SELECT * FROM [User] WHERE email = @username AND password = @password");
+        .query("SELECT * FROM [Users] WHERE email = @username AND password = @password");
       if (result.recordset.length > 0) {
         const { role_id, user_id } = result.recordset[0];
         const user = await pool
